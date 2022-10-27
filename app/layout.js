@@ -10,10 +10,10 @@ export default function RootLayout({children}) {
                 <title>PokeDex: Pokemon Name</title>
             </head>
             <body className={inter.className}>
-                <div></div>
+                {/* <div></div>
                 <div className=''>
                     <button className='w-56 h-10 bg-[#4FAAFF] rounded-lg text-white hover:border-2 border-[#1c94eb] font-[400] text-lg'>Suprise Me!</button>
-                </div>
+                </div> */}
                 {children}
             </body>
         </html>
