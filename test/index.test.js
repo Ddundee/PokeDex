@@ -1,38 +1,38 @@
 const fetch = require('cross-fetch');
 // const pokemon = require('./pokemon.text.json');
+async function getData() {
+  let data = [];
+  let res = fetch("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=905")
+  return res;
+}
 
-
-let poke = [];
-
-fetch('https://pokeapi.co/api/v2/pokemon/' + 100)
-  .then(res => {
-    if (res.status >= 400) {
-      throw new Error("Bad response from server");
-    }
-    return res.json();
-  })
-  .then(pokemon => {
-    console.log(pokemon.forms[0].name)
-    poke[0] = pokemon.forms[0].name
-  })
-  .catch(err => {
-    console.error(err);
+console.log(getData().then((res) => {
+  return res.json()
+}).then((pokemon) => {
+  let data = [];
+  pokemon.results.map((pokemon) => {
+      fetch(pokemon.url)
+          .then((res) => {
+              if (res.status >= 400) throw new Error("Error");
+              return res.json();
+          })
+          .then((pokemon) => {
+              data.push(JSON.parse(JSON.stringify(pokemon)));
+          })
+          .catch((err) => {
+              console.error(err);
+          });
   });
+  return data;
+})
+.catch((err) => {
+  console.error(err);
+})
+);
 
-// console.log(poke.forms);
-
-// console.log(poke.forms[0].name) //name
-// console.log(poke.sprites.other['official-artwork']); // pic
-// console.log(typesFinder())
-
-
-// function typesFinder() {
-//     pokeTypes = ""
-//     poke.types.map(type => {
-//         pokeTypes += type.type.name + " ";
-//     })
-//     return pokeTypes;
-// }
-
-
-setTimeout(() => {console.log(poke)}, 1000)
+// let timeout = 1000;
+// setTimeout(() => console.log(JSON.parse(JSON.stringify(returnVal))), timeout)
+// setTimeout(() => console.log(returnVal[0].id), timeout)
+// setTimeout(() => console.log(returnVal[0].name), timeout)
+// setTimeout(() => console.log(returnVal[0].sprites.other['official-artwork'].front_default), timeout)
+// setTimeout(() => console.log(returnVal[0].types), timeout)
