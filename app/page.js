@@ -15,7 +15,7 @@ export default async function Page() {
             {/* {data.map((pokemon) => (
                 <Card id={pokemon.id} name={pokemon.name} image={pokemon.sprites.other['official-artwork'].front_default} types="stufs" />
             ))} */}
-            <div>{console.log(data)}</div>
+            
         </div>
     );
 }
