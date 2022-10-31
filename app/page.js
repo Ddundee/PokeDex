@@ -5,18 +5,17 @@ import pokemons from './pokemons.json'
 export default async function Page() {
     // console.log(pokemons)
     return (
-        <div className="flex flex-wrap justify-evenly">
+        <div className="flex flex-wrap flex-auto justify-evenly">
             {pokemons.map((pokemon) => {
                 // {console.log(1)}
                 return (
-                    <Link href="/" key={pokemon.id}>
                         <Card 
                             id={idZeroHanlder(pokemon.id)} 
                             name={pokemon.name} 
                             image={pokemon.sprite} 
                             types={pokemon.types} 
-                            key={pokemon.id}/>
-                        </Link>
+                            key={pokemon.id}
+                        />
                 )
             })}
         </div>

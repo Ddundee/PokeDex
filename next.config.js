@@ -11,4 +11,13 @@ module.exports = {
   experimental: {
     appDir: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/:slug',
+        destination: '/',
+        permanent: true
+      }
+    ]
+  }
 }
