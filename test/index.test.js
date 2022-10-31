@@ -1,39 +1,18 @@
 const fetch = require('cross-fetch');
-// const pokemon = require('./pokemon.text.json');
+const pokemons = require('./db.json');
+const fs = require('fs');
 
-async function getData() {
-  let data = [];
-  fetch("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=905")
-      .then((res) => {
-          if (res.status >= 400) throw new Error("Error");
-          return res.json();
-      })
-      .then((pokemon) => {
-          pokemon.results.map((pokemon) => {
-              fetch(pokemon.url)
-                  .then((res) => {
-                      if (res.status >= 400) throw new Error("Error");
-                      return res.json();
-                  })
-                  .then((pokemon) => {
-                      data.push(JSON.parse(JSON.stringify(pokemon)));
-                  })
-                  .catch((err) => {
-                      console.error(err);
-                  });
-          });
-      })
-      .catch((err) => {
-          console.error(err);
-      });
-      return data;
+let a, b;
+for(let i = 0; i < pokemons.length; i++) {
+    for(let j = 0; j < pokemons.length - 1; j++) {
+        if(pokemons[j].id > pokemons[j + 1].id) {
+            a = pokemons[j];
+            b = pokemons[j + 1];
+            pokemons[j] = b;
+            pokemons[j + 1] = a;
+        }
+        // console.log(`Interation: ${i} - ${j}`)
+    }
 }
 
-console.log(getData());
-
-// let timeout = 1000;
-// setTimeout(() => console.log(JSON.parse(JSON.stringify(returnVal))), timeout)
-// setTimeout(() => console.log(returnVal[0].id), timeout)
-// setTimeout(() => console.log(returnVal[0].name), timeout)
-// setTimeout(() => console.log(returnVal[0].sprites.other['official-artwork'].front_default), timeout)
-// setTimeout(() => console.log(returnVal[0].types), timeout)
+console.log(JSON.stringify(pokemons))

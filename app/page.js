@@ -1,52 +1,30 @@
+import Link from "next/link";
 import Card from "./components/Card";
-const fetch = require("cross-fetch");
-// getServerSideProps();
-export default async function Page() {
-    const data = await getData();
+import pokemons from './pokemons.json'
 
+export default async function Page() {
+    // console.log(pokemons)
     return (
-        <div className="flex flex-wrap justify-start">
-            <Card
-                id="#001"
-                name="Bulbasaur"
-                image="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
-                types="poison grass"
-            />
-            {/* {data.map((pokemon) => (
-                <Card id={pokemon.id} name={pokemon.name} image={pokemon.sprites.other['official-artwork'].front_default} types="stufs" />
-            ))} */}
-            
+        <div className="flex flex-wrap justify-evenly">
+            {pokemons.map((pokemon) => {
+                // {console.log(1)}
+                return (
+                    <Link href="/" key={pokemon.id}>
+                        <Card 
+                            id={idZeroHanlder(pokemon.id)} 
+                            name={pokemon.name} 
+                            image={pokemon.sprite} 
+                            types={pokemon.types} 
+                            key={pokemon.id}/>
+                        </Link>
+                )
+            })}
         </div>
     );
 }
 
-export async function getData() {
-    let data = [];
-    fetch("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=905")
-        .then((res) => {
-            if (res.status >= 400) throw new Error("Error");
-            return res.json();
-        })
-        .then((pokemon) => {
-            pokemon.results.map((pokemon) => {
-                fetch(pokemon.url)
-                    .then((res) => {
-                        if (res.status >= 400) throw new Error("Error");
-                        return res.json();
-                    })
-                    .then((pokemon) => {
-                        data.push(JSON.parse(JSON.stringify(pokemon)));
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                    });
-            });
-        })
-        .catch((err) => {
-            console.error(err);
-        });
-        return data;
+function idZeroHanlder(num) {
+    if(num < 10) return "00" + num;
+    if(num < 100) return "0" + num;
+    return num;
 }
-
-
-
