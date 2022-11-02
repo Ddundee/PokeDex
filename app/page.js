@@ -1,16 +1,16 @@
 import Head from "next/head";
 import Link from "next/link";
-import Card from "./components/Card";
-import pokemons from "./pokemons.json";
+import Card from "../components/Card";
+import pokemons from "../pokemons.json";
 
 export default async function Page() {
   // console.log(pokemons)
   return (
     <>
-    <head>
+      <head>
         <title>PokeDex</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </head>
+      </head>
       <div className="flex flex-wrap flex-auto justify-evenly">
         {pokemons.map((pokemon) => {
           // {console.log(1)}
